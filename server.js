@@ -1,8 +1,9 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require( 'cors' )
-const Pool = require('pg').Pool
-const { v4: uuidv4 }  = require('uuid');
+import express from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors' 
+import * as pg from 'pg'
+const { Pool } = pg
+import { uuidv4 }  from 'uuid';
 
 
 const app = express()
