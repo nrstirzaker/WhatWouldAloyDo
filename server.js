@@ -1,13 +1,14 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors' 
-import * as pg from 'pg'
-const { Pool } = pg
-import { uuidv4 }  from 'uuid';
+import pg from 'pg';
+const { Pool } = pg;
+import  { v4 as uuidv4 } from 'uuid';
 
 
 const app = express()
 const port = 80
+
 const pool = new Pool({
   user: process.env.DATABASE_USERNAME,
   host: process.env.DATABASE_HOST,
