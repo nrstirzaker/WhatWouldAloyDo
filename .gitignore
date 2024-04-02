@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 
 .env
+nodemon.json
+nightwatch
+test
+tests_output
