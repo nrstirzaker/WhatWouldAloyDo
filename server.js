@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'))
 app.use(cors())
 app.use(bodyParser.json())
-app.use(favicon(path.join('public','favicon.ico')));
+//app.use(favicon(path.join('public','favicon.ico')));
 
 
 app.post('/api/save', (request, response) => {
