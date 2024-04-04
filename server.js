@@ -105,9 +105,23 @@ app.get('/api/tasks/:direction/:from', (request, response) => {
   })
 })
 
-app.put('/api/review:id', (request, response) => {
-  console.log(DateTime.utc().toISO() + ":/api/review")
-  console.log("put")
+app.post('/api/task/review', (request, response) => {
+  console.log(DateTime.utc().toISO() + ":/api/task/review")
+  const taskId = request.body.id;
+  const ipAddressOfReviewer = request.body.ip_address;
+  
+//same ip address cant review task more than once ( add index?)
+  const sql = "INSERT INTO log_remove (id, task_id, ip_address_reviewer, created_at) values ($1. $2, $3, $4)"
+  const values = [uuidv4(), taskId, ipAddressOfReviewer, getUTCNow()]
+  pool.query(sql, values, (error, results) => {
+    if (error) {
+      console.error(DateTime.utc().toISO() + ":Task Review Error" + error)
+    } else {
+      console.log(DateTime.utc().toISO() + ":Logged Reivew against" + taskId)
+      response.status(200)
+    }
+  })
+
   response.sendStatus(200);
 })
 
