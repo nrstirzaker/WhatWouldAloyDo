@@ -18,14 +18,21 @@ dotenv.config();
 const app = express()
 const port = process.env.PORT || 3000
 
-const pool = new Pool({
+const POOL_CONFIG = {
   user: process.env.POSTGRES_USER,
   host: process.env.POSTGRES_HOST,
   database: process.env.POSTGRES_DB,
   password: process.env.POSTGRES_PASSWORD,
   port: process.env.POSTGRES_PORT,
+}
 
-})
+if (process.env.NODE_ENV === 'production'){
+  const ssl = {rejectUnauthorized: false}
+
+  POOL_CONFIG.ssl = ssl;[]
+}
+
+const pool = new Pool(POOL_CONFIG)
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
