@@ -29,7 +29,7 @@ const POOL_CONFIG = {
 if (process.env.NODE_ENV === 'production'){
   const ssl = {rejectUnauthorized: false}
 
-  POOL_CONFIG.ssl = ssl;[]
+  POOL_CONFIG.ssl = ssl
 }
 
 const pool = new Pool(POOL_CONFIG)
