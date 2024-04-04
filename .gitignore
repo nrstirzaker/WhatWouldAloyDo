@@ -28,3 +28,4 @@ nodemon.json
 nightwatch
 test
 tests_output
+.vscode

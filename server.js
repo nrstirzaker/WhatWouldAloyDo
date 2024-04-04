@@ -24,9 +24,7 @@ const pool = new Pool({
   database: process.env.POSTGRES_DB,
   password: process.env.POSTGRES_PASSWORD,
   port: process.env.POSTGRES_PORT,
-  ssl:{
-    rejectUnauthorized: false
-  }
+
 })
 
 app.use(express.json());
@@ -34,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'))
 app.use(cors())
 app.use(bodyParser.json())
-//app.use(favicon(path.join('public','favicon.ico')));
+
 
 
 app.post('/api/save', (request, response) => {
@@ -68,8 +66,14 @@ app.get('/api/validate', (request, response) => {
       console.error(DateTime.utc().toISO() + ":Validation Error" + error)
     } else {
       console.log(DateTime.utc().toISO() + ":Posting:rows found: " + JSON.stringify(results.rows[0]))
-      //response.status(200).json({ "validToday": results.rows[0].count == '0' })      
-      response.status(200).json({ "validToday": true })      
+      if (process.env.NODE_ENV === 'production'){
+        response.status(200).json({ "validToday": results.rows[0].count == '0' })      
+      }else{
+        response.status(200).json({ "validToday": true })      
+      }
+      
+      
+      
     }
   })
 })
